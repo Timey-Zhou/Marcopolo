@@ -19,6 +19,8 @@ PATH = [(39.904211, 116.407395), (-33.868820, 151.209296),
 (-26.204103, 28.047305),(41.008238, 28.978359), 
 (1.352083, 103.819836),(39.904211, 116.407395)]
 PATHMARKERS = [(39.904211, 116.407395, "Beijing"), (-33.868820, 151.209296, "Sydney")]
+HEADER = ""
+DETAIL = ""
 
 @app.route('/')
 def mapview():
@@ -36,6 +38,8 @@ def mapview():
 
     return render_template(
         'example.html',
+        airline=HEADER,
+        detail=DETAIL,
         plinemap=plinemap,
     )
 
@@ -43,10 +47,19 @@ def mapview():
 def calculate():
     name = request.form['mode']
     print name
-    global PATH
-    PATH = test.citylist(name)
-    print PATH
+    global PATH, PATHMARKER, HEADER, DETAIL
+    PATH, PATHMARKER, DETAIL = test.citylist(name)
+    if name == "5":
+        HEADER = "now flies with United"
+    elif name == "7":
+        HEADER = "now flies with Air France"
+    return redirect('/')
+
+@app.route('/custom_plan', methods=['POST'])
+def customize():
+    city_list = request.form['city_list']
+    print city_list
     return redirect('/')
 
 if __name__ == "__main__":
-    app.run(debug=True, use_reloader=True)
+    app.run(debug=True, use_reloader=True, port = 80)

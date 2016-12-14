@@ -2,7 +2,7 @@
     <html>
     <head>
         <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
         <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
         <title>Flying Marcopolo</title>
         {{plinemap.js}}
@@ -10,7 +10,8 @@
         body{  
             margin: 0;
             padding: 0; 
-            text-align: center;  
+            text-align: center;
+            background-size:cover;  
         }   
         .container{  
             width: 1280px;  
@@ -19,7 +20,7 @@
         }  
           
         .header{  
-            padding: 8px 0;  
+            padding: 10px 0;  
         }  
           
         .sidebar{  
@@ -104,7 +105,7 @@
     <body background="{{ url_for('static', filename='bg.jpg') }}">
         <div class="container">
             <div class="header">  
-                <span class="style1">Flying Marcopolo</span>  
+                <span class="style1">Flying Marcopolo {{airline}}</span>  
             </div>  
             <div class="sidebar">
                 <form style="padding-top:20px;padding-left:10px" method="POST" action="/plan">
@@ -116,19 +117,19 @@
                     </select> <input type="submit" value="Marcopolo"></p>
                 </form>
                 <form style="padding-top:20px;padding-left:10px" method="POST" action="/plan">
-                    <select name="airline" style="height=10px; width:120px">
-                        <option value=1>United</option>
-                        <option value=2>Delta</option>
-                        <option value=3>Air France</option>
-                        <option value=4>Air China</option>
+                    <select name="mode" style="height=10px; width:120px">
+                        <option value=5>United</option>
+                        <option value=6>Delta</option>
+                        <option value=7>Air France</option>
+                        <option value=8>Air China</option>
                     </select> <input type="submit" value="Marcopolo"></p>
                 </form>
-                <form method="POST" action="/plan">
-                    <p>Self-defined City List: <input type="text" style="height=10px; width:250px" name="name"></p>
-                    <input type="submit" value="Add">
+                <form method="POST" action="/custom_plan">
+                    <p>Self-defined City List: <input type="text" style="height=10px; width:250px" name="city_list"></p>
+                    <input type="submit" value="Customize">
                 </form>
                 <br>
-                <textarea cols="35" rows="13" overflow-x:"hidden"> Display the output details.Display the output details.Display the output details.Display the output details.Display the output details.Display the output details.Display the output details.Display the output details.Display the output details.Display the output details.Display the output details.Display the output details.Display the output details.Display the output details.Display the output details.Display the output details.Display the output details.Display the output details.Display the output details.Display the output details.</textarea>
+                <textarea cols="35" rows="13" overflow-x:"hidden"> {{detail}}</textarea>
             </div>
             <div class="maincontent">
                 {{plinemap.html}}
